@@ -1,6 +1,7 @@
 {
   "name": "163-music-1",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,10 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "leancloud-storage": "^4.12.2",
-    "moxie": "^0.0.0",
-    "plupload": "^2.3.2",
-    "qiniu": "^7.7.0",
-    "qiniu-js": "^1.0.22"
-  },
-  "description": ""
+    "qiniu-js": "^1.0.22",
+    "plupload": "^2.3.2"
+  }
 }

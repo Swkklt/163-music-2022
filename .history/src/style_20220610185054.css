@@ -1,0 +1,10 @@
+#yyy{
+    padding: 10px 20px;
+    border: 2px dashed black;
+    width: 200px;
+    /* 居中 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}

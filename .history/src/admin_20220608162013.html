@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+    <title>管理页面</title>
+</head>
+
+<body>
+    <script>
+        
+        console.log(AV)
+        // leanCloud————Javascript JDK  通过npm安装后进行初始化
+        AV.init({
+            appId: "febKHLxDgtGpOLfy6JCqG46T-gzGzoHsz",
+            appKey: "Rrf9V6pVlYipLPbrphUcb14m",
+            serverURL: "https://febkhlxd.lc-cn-n1-shared.com"
+        })
+
+        const TestObject = AV.Object.extend('TestObject');
+        const testObject = new TestObject();
+        testObject.set('words', 'Hello world!');
+        testObject.save().then((testObject) => {
+            console.log('保存成功。')
+        })
+    </script>
+</body>
+
+</html>
