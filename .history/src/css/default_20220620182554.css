@@ -21,12 +21,12 @@ body{
 }
 .page > aside{
     width: 200px;
+    margin-right: 20px;
     /* border: 1px solid red; */
 }
 .page > main{
     flex-grow: 1; /* 自己跟着旁边的元素变化 */
     /* border: 1px solid green; */
-    padding-left: 20px;
 }
 
 /* 3、特殊设置 */
@@ -78,14 +78,11 @@ body{
 }
 
 /* main */
-.page > main{
-    background: #d4d4d4;
-}
 .form {
     font-size: 14px;
 }
 .form > .row{
-    margin: 20px 0;
+    margin: 10px 0;
     display: flex;
 }
 .form > .row > label{

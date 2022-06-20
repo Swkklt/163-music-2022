@@ -26,7 +26,6 @@ body{
 .page > main{
     flex-grow: 1; /* 自己跟着旁边的元素变化 */
     /* border: 1px solid green; */
-    padding-left: 20px;
 }
 
 /* 3、特殊设置 */
