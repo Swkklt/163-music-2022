@@ -1,0 +1,19 @@
+/* 基础设置 */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* 特殊设置 */
+#yyy{
+    padding: 50px 80px;
+    border-radius: 20px;
+    border: 2px dashed #ddd;
+    width: 200px;
+    /* 居中 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 内部元素垂直结构 */
+    flex-direction: column;
+}

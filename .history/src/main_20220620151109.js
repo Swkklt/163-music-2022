@@ -35,7 +35,7 @@ console.log(Qiniu)
 var uploader = Qiniu.uploader({
     // disable_statistics_report: false,   // 禁止自动发送上传统计信息到七牛，默认允许发送
     runtimes: 'html5',      // 上传模式,依次退化
-    browse_button: 'uploadButton',         // 上传选择的点选按钮，**必需**
+    browse_button: 'xxx',         // 上传选择的点选按钮，**必需**
     //uptoken : '', // uptoken 是上传凭证，由其他程序生成
     // 在初始化时，uptoken, uptoken_url, uptoken_func 三个参数中必须有一个被设置
     // 切如果提供了多个，其优先级为 uptoken > uptoken_url > uptoken_func
@@ -57,7 +57,7 @@ var uploader = Qiniu.uploader({
     // flash_swf_url: 'path/of/plupload/Moxie.swf',  //引入 flash,相对路径
     // max_retries: 3,                     // 上传失败最大重试次数
     dragdrop: true,                     // 开启可拖曳上传
-    drop_element: 'uploadContainer',          // 拖曳上传区域元素的 ID，拖曳文件或文件夹后可触发上传
+    drop_element: 'yyy',          // 拖曳上传区域元素的 ID，拖曳文件或文件夹后可触发上传
     //chunk_size: '4mb',                  // 分块上传时，每块的体积
     auto_start: true,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传,
     //x_vars : {
@@ -101,7 +101,7 @@ var uploader = Qiniu.uploader({
             uploadStatus.textContent = '上传完毕'
             var domain = up.getOption('domain');
             var response = JSON.parse(info.response);
-            var sourceLink = 'http://' + domain + '/' + encodeURIComponent(response.key); // 获取上传成功后的文件的Url
+            var sourceLink = '//' + domain + '/' + encodeURI(response.key); // 获取上传成功后的文件的Url
             console.log(sourceLink)
         },
         'Error': function (up, err, errTip) {
