@@ -42,8 +42,10 @@ body{
 .newSong.active{
     background: #d4d4d4;
 }
-.songList{
+#songList-container{
     flex-grow: 1;  /* 自动靠到最下边 */ 
+}
+.songList{
     text-align: left; /* 文本内容靠左 */
     border-top: 1px solid #999;
 }
