@@ -44,7 +44,8 @@
                 // Ajax请求downToken的Url，私有空间时使用,JS-SDK 将向该地址POST文件的key和domain,服务端返回的JSON必须包含`url`字段，`url`值为该文件的下载地址
                 // unique_names: true,              // 默认 false，key 为文件名。若开启该选项，JS-SDK 会为每个文件自动生成key（文件名）
                 // save_key: true,                  // 默认 false。若在服务端生成 uptoken 的上传策略中指定了 `save_key`，则开启，SDK在前端将不对key进行任何处理
-                domain: 'rd5kcz17m.hb-bkt.clouddn.com',     // bucket 域名，下载资源时用到，如：'http://xxx.bkt.clouddn.com/' **必需**
+                domain: 'www.upupweb.fun',     // bucket 域名，下载资源时用到，如：'http://xxx.bkt.clouddn.com/' **必需**
+                //新的：www.upupweb.fun  需要替换才能下载 旧的：rd5kcz17m.hb-bkt.clouddn.com30天限制
                 //container: 'yyy',             // 上传区域 DOM ID，默认是 browser_button 的父元素，
                 max_file_size: '30mb',             // 最大文件体积限制
                 // flash_swf_url: 'path/of/plupload/Moxie.swf',  //引入 flash,相对路径
@@ -95,9 +96,11 @@
                         // uploadStatus.textContent = '上传完毕'
                         var domain = up.getOption('domain');
                         var response = JSON.parse(info.response);
-                        var sourceLink = 'http://' + domain + '/' + encodeURIComponent(response.key); // 获取上传成功后的文件的Url
-                        console.log('注意：sourceLink = '+sourceLink)
-                        window.eventHub.emit('upload',{
+                        var sourceLink = 'http://' + domain + '/' + encodeURIComponent(response.key); // 获取上传成功后的文件的Url 
+                        console.log('上传歌曲成功后做的事：')
+                        console.log('注意：sourceLink = ' + sourceLink)
+                        console.log('注意：response.key = ' + response.key)
+                        window.eventHub.emit('new',{
                             url:sourceLink,
                             name:response.key
                         })

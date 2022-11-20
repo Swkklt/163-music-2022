@@ -11,12 +11,12 @@ a{color: inherit;text-decoration: none;} /*inherit:和父元素颜色一致  tex
 input{font: inherit;}
 body{
     font-size: 12px;
-    line-height: 1.5;
+    line-height: 1.5;   /*  行间距 */
 }
 
 /* 2、layout布局 */
 .page{
-    display: flex;
+    display: flex; /* 默认左右布局 */
     height: 100vh;
 }
 .page > aside{

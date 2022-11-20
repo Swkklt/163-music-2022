@@ -52,6 +52,17 @@
         data: {
             name: '', singer: '', url: '', id: ''
         },
+        update(data){
+            var song = AV.Object.createWithoutData('Song',this.data.id)
+            song.set('name', data.name)
+            song.set('singer', data.singer)
+            song.set('url', data.url)
+            return song.save()
+            .then((response)=>{ // 因为leanCloud响应里边没有最新的数据所以这里要写.then
+                Object.assign(this.data,data)
+                return response
+            })
+        },
         create(data) {
             // // swkklt:初始代码
             // // 声明 class
@@ -71,7 +82,7 @@
             // }, (error) => {
             //     // 异常处理
             // });
-            console.log('歌曲存到数据库leanCloud')
+            console.log('songform.js将歌曲存到数据库leanCloud')
             // 声明 class
             var Song = AV.Object.extend('Song');
             // 构建对象
@@ -106,7 +117,7 @@
                     {id,...attributes,}
                 ) 
             }, (error) => {
-                // 异常处理
+                // 保存异常处理
                 console.log('error')
             });
         }
@@ -118,40 +129,70 @@
             this.model = model
             this.view.render(this.model.data)
             this.bindEvents()
-            window.eventHub.on('upload', (data) => {
-                this.model.data = data
-                this.view.render(this.model.data)
-            })
             window.eventHub.on('select',(data)=>{
                 this.model.data = data
                 this.view.render(this.model.data)
             })
-            window.eventHub.on('new',()=>{
-                this.model.data = {
-                    name:'',url:'',id:'',singer:''
+            window.eventHub.on('new',(data)=>{
+                // if(data === undefined){
+                //     this.model.data = {
+                //         name:'',url:'',id:'',singer:''
+                //     }
+                // }else{
+                //     this.model.data = data
+                // }
+                // 上边的一段可以简化成下边的两行
+                // data = data || { name:'',url:'',id:'',singer:''}
+                // this.model.data = data
+                if(this.model.data.id){
+                    this.model.data = { name:'',url:'',id:'',singer:''}
+                }else{
+                    Object.assign(this.model.data,data)
                 }
                 this.view.render(this.model.data)
             })
         },
+        create(){
+            let needs = 'name singer url'.split(' ')// 通过空格得到一个数组 等价于let need = ['name','singer','url'] 
+            let data = {}
+            // foreach就是一个没有返回值的map，所以最好用map
+            needs.map((string) => {
+                data[string] = this.view.$el.find(`[name="${string}"]`).val()
+            })
+            this.model.create(data)
+                .then(()=>{  // 未懂：此处下方如果要写一些语句，this.model.create(data)必须要有返回值return
+                    this.view.reset() 
+                    // console.log(this.model.data)
+                    // 下边两行是一种深拷贝的方式,避免因为其它地方引用同一块内存地址的内容出现bug
+                    let string = JSON.stringify(this.model.data)
+                    let object = JSON.parse(string)
+                    window.eventHub.emit('create',object)  
+                    // window.eventHub.emit('create',this.model.data)  
+                })
+            // console.log(data)
+        },
+        update(){
+            let needs = 'name singer url'.split(' ')// 通过空格得到一个数组 等价于let need = ['name','singer','url'] 
+            let data = {}
+            // foreach就是一个没有返回值的map，所以最好用map
+            needs.map((string) => {
+                data[string] = this.view.$el.find(`[name="${string}"]`).val()
+            })
+            this.model.update(data)  // 将编辑数据更新到leancloud数据库
+                .then(()=>{
+                    // alert('leancloud数据编辑更新成功了')
+                    window.eventHub.emit('update',JSON.parse(JSON.stringify(this.model.data)))  // this.model.data有问题
+                })
+            
+        },
         bindEvents() {
             this.view.$el.on('submit', 'form', (e) => {
                 e.preventDefault()  // 阻止页面的默认刷新
-                let needs = 'name singer url'.split(' ')// 通过空格得到一个数组 等价于let need = ['name','singer','url'] 
-                let data = {}
-                // foreach就是一个没有返回值的map，所以最好用map
-                needs.map((string) => {
-                    data[string] = this.view.$el.find(`[name="${string}"]`).val()
-                })
-                this.model.create(data)
-                    .then(()=>{
-                        // console.log(this.model.data)
-                        this.view.reset()
-                        // 下边两行是一种深拷贝的方式,避免因为其它地方引用同一块内存地址的内容出现bug
-                        let string = JSON.stringify(this.model.data)
-                        let object = JSON.parse(string)
-                        window.eventHub.emit('create',object)  
-                    })
-                // console.log(data)
+                if(this.model.data.id){
+                    this.update()
+                }else{
+                    this.create()
+                }
             })
         }
     }

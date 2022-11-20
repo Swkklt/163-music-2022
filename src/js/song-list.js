@@ -38,10 +38,10 @@
             songs: []
         },
         find() {
-            // 从leanCloud数据库查询歌曲
+            // 从leanCloud数据库批量查询歌曲
             var query = new AV.Query('Song')
             //  console.log(query)  // 从queryAPI的prototype的object里可以找到find方法
-            return query.find().then((songs) => {  // 必须返回一个promise
+            return query.find().then((songs) => {  // 必须返回一个promise，query.find()就是一个promise
                 // console.log(x) // x/songs  
                 this.data.songs = songs.map((song)=>{
                     return {id:song.id,...song.attributes}
@@ -83,15 +83,21 @@
             })
         },
         bindEventHub(){
-            window.eventHub.on('upload', () => {
-                this.view.clearActive()
-            })
             window.eventHub.on('create', (songData) => {
                 this.model.data.songs.push(songData)
                 this.view.render(this.model.data)
             })
             window.eventHub.on('new',()=>{
                 this.view.clearActive()
+            })
+            window.eventHub.on('update',(song)=>{
+                let songs = this.model.data.songs
+                for(let i=0;i<songs.length;i++){
+                    if(songs[i].id === song.id){
+                        Object.assign(songs[i],song)
+                    }
+                }
+                this.view.render(this.model.data)
             })
         }
     }
