@@ -21,7 +21,7 @@
         },
         bindEventHub(){
             window.eventHub.on('selectTab',(tabName)=>{
-                console.log(33)
+                console.log(tabName+'在page-3.js触发了')
                 if(tabName === 'page-3'){
                     this.view.show()
                 }else{
