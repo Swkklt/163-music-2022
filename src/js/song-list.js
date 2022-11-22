@@ -9,33 +9,38 @@
         `,
         render(data) { // render：渲染
             $(this.el).html(this.template)
-            let { songs } = data
+            let { songs,selectSongId} = data
             // let liList = songs.map((song)=>{
             //     let li = $('<li></li>').text(song.name)
             //     return li 
             // })
             // 上边的一段等价于下边的一行
-            let liList = songs.map((song) => 
-                $('<li></li>').text(song.name).attr('data-song-id',song.id)
-            )
+            let liList = songs.map((song) =>{
+                let $li =  $('<li></li>').text(song.name).attr('data-song-id',song.id)
+                if(song.id === selectSongId){
+                    $li.addClass('active')
+                }
+                return $li
+            })
             let $el = $(this.el)
             $el.find('ul').empty() // 清空ul里边的内容
             liList.map((domLi) => {
                 $el.find('ul').append(domLi)
             })
         },
-        activeItem(li){
-            let $li = $(li)
-            $li.addClass('active')
-               .siblings('.active').removeClass('active')
-        },
+        // activeItem(li){
+        //     let $li = $(li)
+        //     $li.addClass('active')
+        //        .siblings('.active').removeClass('active')
+        // },
         clearActive() {
             $(this.el).find('.active').removeClass('active')
         }
     }
     let model = {
         data: {
-            songs: []
+            songs: [],
+            selectSongId:undefined,
         },
         find() {
             // 从leanCloud数据库批量查询歌曲
@@ -67,8 +72,10 @@
         },
         bindEvents(){
             $(this.view.el).on('click','li',(e)=>{ //点击li标签触发函数
-                this.view.activeItem(e.currentTarget)
+                // this.view.activeItem(e.currentTarget)
                 let songId = e.currentTarget.getAttribute('data-song-id')
+                this.model.data.selectSongId = songId
+                this.view.render(this.model.data)
                 let data
                 let songs = this.model.data.songs
                 for(let i=0; i<songs.length;i++){
@@ -99,6 +106,7 @@
                 }
                 this.view.render(this.model.data)
             })
+            // window.eventHub.on('delete')  没有做
         }
     }
     controller.init(view, model)

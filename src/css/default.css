@@ -122,3 +122,41 @@ body{
 .page > main > .form{
 
 }
+
+/* 上传歌曲时loading动画 */
+@keyframes loading{  /*  关键帧，起loading动画忽大忽小作用*/
+    0%{
+        transform: scale(1.0);
+    }
+    100%{
+        transform: scale(0.1);
+    }
+}
+.site-loading{
+    visibility: hidden;  /* 刚开始元素隐藏*/ 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.2);/*猜测最后一个是程度*/
+}
+.site-loading.active{
+    visibility: visible;
+}
+.site-loading::before{/*设置伪元素————loading动画*/
+    content: '';
+    display: block;
+    width: 100px;
+    height: 100px;
+    background: green;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    border-radius: 50%;
+    animation: loading 1s infinite alternate-reverse;  /*infinite:一直循环 alternate：交替：先前再后 alternate-reverse：颠倒交替：先后再前*/
+    animation-timing-function:linear;
+}

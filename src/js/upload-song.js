@@ -76,6 +76,15 @@
                     },
                     'BeforeUpload': function (up, file) {
                         // 每个文件上传前,处理相关的事情
+                        window.eventHub.emit('beforeUpload')
+                        
+                        // if(this.model.data.status === 'closed'){  // 视频为讲却写部分
+                        //     return false
+                        // }else{
+                        //     this.model.data.status = 'closed'
+                        //     return true
+                        // }
+
                     },
                     'UploadProgress': function (up, file) {
                         // 每个文件上传时,处理相关的事情
@@ -94,6 +103,9 @@
                         // var res = parseJSON(info.response); // parseJSON给的是伪代码，根据自己的编程语言去改成能运行的代码
                         // var sourceLink = domain + res.key; // 获取上传成功后的文件的Url
                         // uploadStatus.textContent = '上传完毕'
+
+                        window.eventHub.emit('afterUpload')
+                        // this.model.data.status = 'open' // 未讲却写部分
                         var domain = up.getOption('domain');
                         var response = JSON.parse(info.response);
                         var sourceLink = 'http://' + domain + '/' + encodeURIComponent(response.key); // 获取上传成功后的文件的Url 
