@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8"> <!-- 设置当前html文件的字符编码 -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <!-- 设置浏览器的兼容模式（让IE使用最新的浏览器渲染） -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- 视口（快捷键：meta:vp） -->
+    <!-- 作用：
+            在移动浏览器中，当页面宽度超出设备，浏览器内部虚拟的一个页面容器，将页面容器缩放到设备那么大展示；
+            视口的宽度可以通过meta标签设置；
+            此属性为移动端页面视口设置； 
+                1、width:视口的宽度，width=device-width:宽度是设备的宽度
+                2、initial-scale：初始化缩放，- initial-scale=1.0：不缩放
+                3、user-scalable：是否允许用户自行缩放，取值0或1，yes或no
+                4、minimum-scale：最小缩放
+                5、maximum-scale：最大缩放
+                6、一般设置了不允许缩放，就没必要设置最大最小缩放了。
+    -->
+    <meta name="viewport"
+        ,content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <title>我的云音乐</title>
+    <link rel="stylesheet" href="./css/song.css">
+
+</head>
+
+<body>
+    <!-- 歌曲播放页面
+    <div id="app"></div> -->
+
+    <div id="app" class="page">
+        <audio src="#"></audio>
+        <!-- <audio src="sbout:blank"></audio> -->
+        <div class="disc-container">
+            <img class="pointer" src="//s3.music.126.net/m/s/img/needle-ip6.png?be4ebbeb6befadfcae75ce174e7db862 "
+                alt="">
+            <div class="disc">
+                <div class="icon-wrapper">
+                    <svg class="icon icon-play">
+                        <use xlink:href="#icon-play"></use>
+                    </svg>
+                    <svg class="icon icon-pause">
+                        <use xlink:href="#icon-pause"></use>
+                    </svg>
+                </div>
+                <img class="ring" src="//s3.music.126.net/m/s/img/disc-ip6.png?69796123ad7cfe95781ea38aac8f2d48" alt="">
+                <img class="light" src="//s3.music.126.net/m/s/img/disc_light-ip6.png?996fc8a2bc62e1ab3f51f135fc459577"
+                    alt="">
+                <img src="//p1.music.126.net/_ZIyHUML8sXBvJXqLdQDOg==/105553116278617.jpg?imageView&thumbnail=360x0&quality=75&tostatic=0"
+                    alt="" class="cover">
+            </div>
+        </div>
+        <div class="song-description">
+            <h1>太平洋的风-胡德夫</h1>
+            <div class="lyric">
+                <div class="lines">
+
+                </div>
+            </div>
+        </div>
+        <div class="links">
+            <a href="#">打开</a>
+            <a class="main" href="#">下载</a>
+        </div>
+    </div>
+
+    <script src="//at.alicdn.com/t/font_395875_4hwrep7mypx8ncdi.js"></script><!-- 使icon能用 具体原理：CSS深入浅出 -->
+    <!-- 外部API -->
+    <!--  下边四条从admin中复制过来-->
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- leancloud-storage数据库文件 -->
+    <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+    <script src="./js/initializers/av.js"></script> <!-- 初始化AV -->
+    <!-- MVC -->
+    <script src="./js/admin/event-hub.js"></script> <!-- 引入事件中心，用来反耦合，让各个模块通知起来(联系起来) -->
+
+    <!-- 新建js -->
+    <script src="./js/song/app.js"></script>
+
+</body>
+
+</html>
