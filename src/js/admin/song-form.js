@@ -32,13 +32,19 @@
                     </label>
                     <input name="cover" type="text" value="__cover__">
                 </div>
+                <div class="row">
+                    <label>
+                        歌词
+                    </label>
+                    <textarea name="lyrics" cols=100 rows=10>__lyrics__</textarea>
+                </div>
                 <div class="row actions">
                     <button type="submit">保存</button>
                 </div>
             </form>        
         `,
         render(data = {}) {  // ES6语法：如果用户没有传data或者传的data是一个undefined，就设置其为空
-            let placeholdders = ['name', 'url','singer','id','cover']
+            let placeholdders = ['name', 'url','singer','id','cover','lyrics']
             let html = this.template
             placeholdders.map((string) => {
                 html = html.replace(`__${string}__`, data[string] || '')
@@ -56,7 +62,7 @@
     }
     let model = {
         data: {
-            name: '', singer: '', url: '', id: '',cover:''
+            name: '', singer: '', url: '', id: '',cover:'',lyrics:''
         },
         update(data){
             var song = AV.Object.createWithoutData('Song',this.data.id)
@@ -64,6 +70,7 @@
             song.set('singer', data.singer)
             song.set('url', data.url)
             song.set('cover', data.cover)
+            song.set('lyrics',data.lyrics)
             return song.save()
             .then((response)=>{ // 因为leanCloud响应里边没有最新的数据所以这里要写.then
                 Object.assign(this.data,data)
@@ -99,6 +106,7 @@
             song.set('singer', data.singer);
             song.set('url', data.url);
             song.set('cover', data.cover);
+            song.set('lyrics',data.lyrics);
             // 将对象保存到云端
             return song.save().then((newSong)=>{
                 // 成功保存之后，执行其他逻辑
@@ -153,7 +161,7 @@
                 // data = data || { name:'',url:'',id:'',singer:''}
                 // this.model.data = data
                 if(this.model.data.id){
-                    this.model.data = { name:'',url:'',id:'',singer:''}
+                    this.model.data = { name:'',url:'',id:'',singer:'',cover:'',lyrics:''}
                 }else{
                     Object.assign(this.model.data,data)
                 }
@@ -161,7 +169,7 @@
             })
         },
         create(){
-            let needs = 'name singer url cover'.split(' ')// 通过空格得到一个数组 等价于let need = ['name','singer','url'] 
+            let needs = 'name singer url cover lyrics'.split(' ')// 通过空格得到一个数组 等价于let need = ['name','singer','url'] 
             let data = {}
             // foreach就是一个没有返回值的map，所以最好用map
             needs.map((string) => {
@@ -180,7 +188,7 @@
             // console.log(data)
         },
         update(){
-            let needs = 'name singer url cover'.split(' ')// 通过空格得到一个数组 等价于let need = ['name','singer','url'] 
+            let needs = 'name singer url cover lyrics'.split(' ')// 通过空格得到一个数组 等价于let need = ['name','singer','url'] 
             let data = {}
             // foreach就是一个没有返回值的map，所以最好用map
             needs.map((string) => {
