@@ -45,7 +45,7 @@
             return query.find().then((songs) => {  // 必须返回一个promise，query.find()就是一个promise
                 // console.log(x) // x/songs  
                 this.data.songs = songs.map((song) => {
-                    return { id: song.id, ...song.attributes }
+                    return { id: song.id, ...song.attributes }  //  frank用apple自带浏览器测试报错，错误提示————不支持'...'语法
                 })
                 return songs
             })

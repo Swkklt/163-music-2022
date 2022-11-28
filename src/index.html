@@ -265,6 +265,14 @@
         </ol>
     </div>
 
+    <script>
+        window.onerror = function(message,file,row,column){  // 检测任何js文件加载异常问题，任何js加载失败都会报错到message中，message，file,row是这个函数的三个参数
+            alert(message) // js加载错误原因
+            alert(file)  // ji加载发生错误的文件
+            alert(row)  // ji加载发生错误的行数
+            alert(column) // ji加载发生错误的列数，列数有时候不靠谱，不准确
+        }
+    </script>
     <script src="//at.alicdn.com/t/font_395875_4hwrep7mypx8ncdi.js"></script><!-- 使icon能用 具体原理：CSS深入浅出 -->
     
     <!-- 外部API -->
